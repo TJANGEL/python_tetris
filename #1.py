@@ -250,6 +250,16 @@ def draw_next_shape(shape, surface):
  
     surface.blit(label, (sx + 10, sy- 30))
  
+def update_score(score):
+    with open ('scores.txt', 'r') as f:
+        lines = f.redlines()
+        score = lines[0].strip() 
+
+    with open ('scores.txt', 'w') as f:
+        if score > nscore:
+            f.write(str(score))
+        else: 
+            f.write(str(nscore))
  
 def draw_window(surface):
     surface.fill((0,0,0))
@@ -358,6 +368,7 @@ def main():
         # Check if user lost
         if check_lost(locked_positions):
             run = False
+            update_score(score)
  
     draw_text_middle("You Lost", 40, (255,255,255), win)
     pygame.display.update()
